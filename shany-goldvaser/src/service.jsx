@@ -1,5 +1,5 @@
 import axios from 'axios';
-axios.defaults.baseURL = "http://localhost:5194"
+axios.defaults.baseURL = process.env.MY_URL;
 axios.interceptors.request.use(function (config) {
     const token = 'your-auth-token';
     console.log('Request Config:', config);
