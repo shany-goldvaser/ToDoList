@@ -7,12 +7,13 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // API של Render
-const API_KEY = process.env.RENDER_API_KEY; // ודא שהגדרת את המפתח בקובץ .env
+const RENDER_API_URL = "https://api.render.com/v1/services";
+const API_KEY = "rnd_Y1MdgsMq48gWm6chU6Qp4NcpXZVG";
 
 // נקודת קצה שמחזירה את רשימת האפליקציות
 app.get("/", async (req, res) => {
   try {
-    const response = await axios.get('https://api.render.com/v1/services', {
+    const response = await axios.get(RENDER_API_URL, {
       headers: {
         Authorization: `Bearer ${API_KEY}`,
       },
