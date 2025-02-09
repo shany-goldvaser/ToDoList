@@ -15,45 +15,36 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAllOrigins",
         builder => builder
-            .AllowAnyOrigin() // Allows any origin
-            .AllowAnyMethod() // Allows any HTTP method (GET, POST, etc.)
-            .AllowAnyHeader()); // Allows any header
+            .AllowAnyOrigin() 
+            .AllowAnyMethod() 
+            .AllowAnyHeader()); 
 });
 
-// Add services to the container
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-
-// Add Swagger services
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
 });
-
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
 }
 
-// Use the CORS policy
 app.UseCors("AllowAllOrigins");
 
-// Enable middleware to serve generated Swagger as a JSON endpoint.
 app.UseSwagger();
 
-// Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
 app.UseSwaggerUI(c =>
 {
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-    c.RoutePrefix = string.Empty; // Set Swagger UI at the app's root
+    c.RoutePrefix = string.Empty; 
 });
 
 app.UseAuthorization();
 app.MapControllers();
-// Define minimal API endpoints
 app.MapGet("/items", async (ToDoDbContext context) =>
     await context.Items.ToListAsync());
 
