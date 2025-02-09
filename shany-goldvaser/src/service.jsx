@@ -1,5 +1,5 @@
 import axios from 'axios';
-axios.defaults.baseURL = process.env.MY_URL;
+axios.defaults.baseURL = import.meta.env.VITE_MY_URL;
 axios.interceptors.request.use(function (config) {
     const token = 'your-auth-token';
     console.log('Request Config:', config);
@@ -20,9 +20,13 @@ axios.interceptors.response.use(function (response) {
 
 export default {
     getTasks: async () => {
-        const result = await axios.get(`/items`)
-        return result.data;
-    },
+        const result = await axios.get('/tasks');
+        if (Array.isArray(result.data))
+        return result.data
+        else {
+          return [];
+        }
+      },
 
     addTask: async (name) => {
         console.log('addTask', name)
