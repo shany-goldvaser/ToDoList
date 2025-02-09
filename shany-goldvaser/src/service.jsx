@@ -1,10 +1,8 @@
 import axios from 'axios';
 axios.defaults.baseURL = import.meta.env.VITE_MY_URL;
-console.log('url',import.meta.env.VITE_MY_URL);
-
 axios.interceptors.request.use(function (config) {
     const token = 'your-auth-token';
-    // console.log('Request Config:', config);
+    console.log('Request Config:', config);
     return config;
 }, function (error) {
 
@@ -12,7 +10,7 @@ axios.interceptors.request.use(function (config) {
     return Promise.reject(error);
 });
 axios.interceptors.response.use(function (response) {
-    // console.log('Response Data:', response.data);
+    console.log('Response Data:', response.data);
     return response;
 }, function (error) {
     console.error('Response Error:', error.response ? error.response.data : error.message);
